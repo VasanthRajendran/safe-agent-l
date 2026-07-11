@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "safe-agent-l: A Reference Implementation of the SAFE-AGENT-L Governance Framework for Autonomous AI Agent Systems"
+type: software
+authors:
+  - family-names: Rajendran
+    given-names: Vasanth
+    email: vasanthr430@gmail.com
+version: 0.1.0
+date-released: 2026-07-11
+license: MIT
+repository-code: "https://github.com/vasanthr430/safe-agent-l"
