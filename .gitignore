@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 *.egg-info/
+src/*.egg-info/
 .pytest_cache/
 .coverage
 htmlcov/
