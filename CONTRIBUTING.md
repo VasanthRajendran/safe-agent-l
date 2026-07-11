@@ -5,7 +5,7 @@ Thanks for your interest in improving safe-agent-l.
 ## Getting started
 
 ```bash
-git clone https://github.com/vasanthr430/safe-agent-l.git
+git clone https://github.com/VasanthRajendran/safe-agent-l.git
 cd safe-agent-l
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"

@@ -1,6 +1,6 @@
 # safe-agent-l
 
-[![Tests](https://github.com/vasanthr430/safe-agent-l/actions/workflows/tests.yml/badge.svg)](https://github.com/vasanthr430/safe-agent-l/actions/workflows/tests.yml)
+[![Tests](https://github.com/VasanthRajendran/safe-agent-l/actions/workflows/tests.yml/badge.svg)](https://github.com/VasanthRajendran/safe-agent-l/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A reference implementation of **SAFE-AGENT-L**, a governance framework for
@@ -33,7 +33,7 @@ pip install safe-agent-l
 Or from source:
 
 ```bash
-git clone https://github.com/vasanthr430/safe-agent-l.git
+git clone https://github.com/VasanthRajendran/safe-agent-l.git
 cd safe-agent-l
 pip install -e ".[dev]"
 ```
