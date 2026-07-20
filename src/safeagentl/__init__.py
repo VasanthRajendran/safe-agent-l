@@ -1,12 +1,12 @@
-"""safe-agent-l: a reference implementation of the SAFE-AGENT-L governance
-framework for autonomous AI agent systems.
+"""safe-agent-l: a Python runtime enforcement library for governed
+autonomous AI agent systems, implementing the four SAFE-AGENT-L controls.
 
-Four pillars, one module each:
+One control per module:
 
-* :mod:`safeagentl.constraints`     — Pillar 1, legal compliance by design
-* :mod:`safeagentl.explainability`  — Pillar 2, decision traceability
-* :mod:`safeagentl.safety`          — Pillar 3, defense-in-depth safety controls
-* :mod:`safeagentl.network`         — Pillar 4, network-aware resilience
+* :mod:`safeagentl.constraints`     — constraint enforcement (legal compliance by design)
+* :mod:`safeagentl.explainability`  — auditable decision traces
+* :mod:`safeagentl.safety`          — defense-in-depth safety controls
+* :mod:`safeagentl.network`         — fail-closed, network-aware resilience
 
 :class:`safeagentl.agent.SafeAgent` composes all four into a single
 decision pipeline.
