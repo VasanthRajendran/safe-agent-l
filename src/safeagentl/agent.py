@@ -92,13 +92,17 @@ class SafeAgent:
         reasoning.extend(enforcement.applied_constraints)
 
         if not enforcement.allowed:
-            trace = self._log(input_state, enforcement.applied_constraints, enforcement.action, reasoning, allowed=False)
+            trace = self._log(
+                input_state, enforcement.applied_constraints, enforcement.action, reasoning, allowed=False
+            )
             return Decision(allowed=False, action=enforcement.action, trace=trace, reason="constraint_violation")
 
         safety_result: SafetyCheckResult = self.safety_stack.check(enforcement.action)
         if not safety_result.safe:
             reasoning.append(f"safety layers denied action: {safety_result.failed_layers}")
-            trace = self._log(input_state, enforcement.applied_constraints, enforcement.action, reasoning, allowed=False)
+            trace = self._log(
+                input_state, enforcement.applied_constraints, enforcement.action, reasoning, allowed=False
+            )
             return Decision(allowed=False, action=enforcement.action, trace=trace, reason="safety_control_triggered")
 
         trace = self._log(input_state, enforcement.applied_constraints, enforcement.action, reasoning, allowed=True)

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "safe-agent-l: A Reference Implementation of the SAFE-AGENT-L Governance Framework for Autonomous AI Agent Systems"
+title: "safe-agent-l: A Runtime Enforcement Library for Governed Autonomous AI Agent Systems"
 type: software
 authors:
   - family-names: Rajendran

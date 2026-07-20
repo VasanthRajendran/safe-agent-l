@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/VasanthRajendran/safe-agent-l/security/advisories/new
+    about: Guardrail-bypass and other security issues — report privately, never as a public issue.

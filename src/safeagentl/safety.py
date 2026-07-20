@@ -126,7 +126,9 @@ class SafetyStack:
 
     def check(self, action: Dict[str, Any]) -> SafetyCheckResult:
         if not self.breaker.allow():
-            return SafetyCheckResult(safe=False, failed_layers=["circuit_breaker_open"], breaker_state=self.breaker.state)
+            return SafetyCheckResult(
+                safe=False, failed_layers=["circuit_breaker_open"], breaker_state=self.breaker.state
+            )
 
         failed: List[str] = []
         for index, layer in enumerate(self.layers):

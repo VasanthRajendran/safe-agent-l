@@ -1,4 +1,3 @@
-import pytest
 
 from safeagentl.safety import AnomalyDetector, CircuitBreaker, CircuitState, SafetyStack
 

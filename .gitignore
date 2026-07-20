@@ -3,7 +3,10 @@ __pycache__/
 *.egg-info/
 src/*.egg-info/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .coverage
+coverage.xml
 htmlcov/
 build/
 dist/
@@ -11,3 +14,4 @@ dist/
 venv/
 .DS_Store
 decision_audit.jsonl
+tool_gate_audit.jsonl

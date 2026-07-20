@@ -1,0 +1,44 @@
+name: Bug report
+description: Something behaves incorrectly (for guardrail-bypass bugs, use private security reporting instead)
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before filing:** if this bug allows a constraint, safety layer, audit log,
+        or fail-closed behavior to be bypassed, please do NOT open a public issue —
+        report it privately per [SECURITY.md](../../blob/main/SECURITY.md).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Smallest code snippet that shows the problem.
+      render: python
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: safe-agent-l version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.11"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "macOS 15 / Ubuntu 24.04 / Windows 11"
