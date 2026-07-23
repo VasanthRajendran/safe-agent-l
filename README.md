@@ -157,6 +157,7 @@ tool-calling gates, workflow guardrails, and audit-log export, and
 
 - [`examples/pricing_agent.py`](examples/pricing_agent.py) — pricing agent with all four pillars, including timeout and partition handling
 - [`examples/tool_approval_gate.py`](examples/tool_approval_gate.py) — approval gate for a tool-calling agent, with audit-log export
+- [`examples/generic_agent_guard.py`](examples/generic_agent_guard.py) — generic tool-calling agent example with allowed and denied operations
 
 ## API overview
 
