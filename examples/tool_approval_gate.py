@@ -44,16 +44,17 @@ SCRIPTED_PROPOSALS: List[Dict[str, Any]] = [
 
 
 def execute_tool(action: Dict[str, Any]) -> None:
-    """Stand-in for real tool execution. Only ever receives governed actions."""
+    """Simulate the execution of an approved tool call."""
     print(f"    executed: {action['tool']}({action.get('order_id', '')})")
 
 
 def escalate_to_human(decision) -> None:
+    """Escalate a denied action for human review instead of executing it."""
     print(f"    escalated to human review: {decision.reason}")
 
 
 def export_audit_log(logger: DecisionLogger, path: str) -> int:
-    """Export every decision trace to a JSONL file for compliance review."""
+    """Export every decision trace to a JSONL audit file for compliance review."""
     with open(path, "w", encoding="utf-8") as fh:
         for trace in logger.all_traces():
             fh.write(json.dumps(trace.to_dict(), default=str) + "\n")
@@ -61,6 +62,7 @@ def export_audit_log(logger: DecisionLogger, path: str) -> int:
 
 
 def main() -> None:
+    """Run the approval-gate example and show how policy violations are handled."""
     constraint_engine = ConstraintEngine(
         [
             Constraint(field="tool", op="in", bound=ALLOWED_TOOLS, reason="tool allowlist"),

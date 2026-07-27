@@ -24,8 +24,11 @@ from safeagentl import (
 
 
 def propose_price(input_state: dict) -> dict:
-    """Stand-in for an LLM- or RL-driven pricing policy the organization
-    does not fully trust to respect business rules on its own.
+    """Generate a candidate price proposal for the pricing agent example.
+
+    This acts as a stand-in for an LLM- or RL-driven policy that may
+    occasionally violate business rules, which is why the guardrails are
+    applied before the action is accepted.
     """
     base = input_state["reference_price"]
     noisy_price = base * random.uniform(0.6, 1.3)  # a policy that sometimes misbehaves
@@ -33,10 +36,12 @@ def propose_price(input_state: dict) -> dict:
 
 
 def fetch_policy_from_source_of_truth() -> dict:
+    """Return the latest policy values used to enforce pricing boundaries."""
     return {"min_advertised_price": 19.99, "max_price": 499.99}
 
 
 def main() -> None:
+    """Run the end-to-end pricing example with all SAFE-AGENT-L safeguards enabled."""
     # Pillar 1 — legal compliance by design: the agent cannot output a
     # price below the contractual MAP floor, and prices above the
     # catalog ceiling are clipped rather than rejected outright.
