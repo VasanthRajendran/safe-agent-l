@@ -19,6 +19,72 @@ else:
     escalation_queue.put(decision)
 ```
 
+## Framework-agnostic wrapper patterns
+
+The simplest integration is a thin adapter between your existing agent and the
+safe gate. The adapter should expose a callable that returns a proposed action
+mapping, while the executor should only ever receive `decision.action`.
+
+### 1. Wrap any existing agent
+
+```python
+from safeagentl import Constraint, ConstraintEngine, SafeAgent
+
+gate = SafeAgent(
+    agent_id="support-agent",
+    constraint_engine=ConstraintEngine([
+        Constraint(field="tool", op="in", bound=["lookup_customer", "create_ticket"],
+                   reason="tool allowlist"),
+    ]),
+)
+
+def propose_fn(state: dict) -> dict:
+    proposal = existing_agent.propose(state)  # your current planner or policy
+    return {"tool": proposal["tool"], **proposal.get("args", {})}
+
+decision = gate.decide(state, propose_fn=propose_fn)
+if decision.allowed:
+    execute_tool(decision.action)
+else:
+    escalate_to_human(decision)
+```
+
+The important part is that the executor receives `decision.action`, never the
+original proposal object from the underlying agent.
+
+### 2. Front a workflow step or queue consumer
+
+```python
+def handle_job(job: dict) -> None:
+    decision = gate.decide(job, propose_fn=lambda state: current_policy.propose(state))
+    if decision.allowed:
+        run_step(decision.action)
+    else:
+        queue_dead_letter(job, decision.reason)
+```
+
+This pattern works for cron jobs, queue workers, event handlers, or
+assistant-style request loops.
+
+### 3. Add a safety boundary for a generic executor
+
+```python
+def run_request(request: dict) -> dict:
+    decision = gate.decide(request, propose_fn=lambda state: planner.plan(state))
+    if not decision.allowed:
+        return {"status": "blocked", "reason": decision.reason}
+
+    return {"status": "ok", "action": decision.action}
+```
+
+A generic executor can be anything: a database write, a webhook dispatch, a
+tool invocation, or an internal automation step. As long as the executor uses
+`decision.action` and never the raw proposal, the guardrail remains effective.
+
+These examples do not require LangChain, OpenAI, LlamaIndex, or any other
+framework-specific client. Any callable that returns a dict can be wrapped by
+`SafeAgent`.
+
 ## Gate for an LLM tool-calling agent
 
 Represent each tool call as a flat action dict and constrain the fields you
