@@ -38,6 +38,9 @@ def escalate_to_human(decision) -> None:
 
 
 def main() -> None:
+    # The CDE (Constraint Decision Engine) is the policy gate for this example.
+    # It evaluates each proposed action against explicit rules before the agent can
+    # execute anything, which is how the guardrail blocks risky tool calls.
     constraint_engine = ConstraintEngine(
         [
             Constraint(field="tool", op="in", bound=ALLOWED_TOOLS, reason="tool allowlist"),
