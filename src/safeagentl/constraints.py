@@ -51,6 +51,7 @@ class Constraint:
     bound: Any
     mode: EnforcementMode = EnforcementMode.REJECT
     reason: str = ""
+    required: bool = False
 
     def __post_init__(self) -> None:
         if self.op not in _COMPARATORS:
@@ -76,6 +77,9 @@ class Constraint:
     def describe(self) -> str:
         label = f"{self.field} {self.op} {self.bound!r}"
         return f"{label} ({self.reason})" if self.reason else label
+
+    def describe_missing(self) -> str:
+        return f"required field '{self.field}' is missing (constraint: {self.describe()})"
 
 
 @dataclass
@@ -140,6 +144,7 @@ class ConstraintEngine:
         Fields with no registered constraints pass through unchanged. A
         field is rejected (``allowed=False``) if any REJECT-mode constraint
         on it is violated; CLIP-mode constraints instead coerce the value.
+        Missing fields are ignored unless a constraint is marked ``required=True``.
         """
         enforced = dict(action)
         applied: List[str] = []
@@ -148,7 +153,14 @@ class ConstraintEngine:
 
         for field_name, constraints in self._constraints.items():
             if field_name not in enforced:
+                missing_required = [constraint for constraint in constraints if constraint.required]
+                for constraint in missing_required:
+                    message = constraint.describe_missing()
+                    violations.append(message)
+                    allowed = False
+                    applied.append(f"rejected: '{field_name}' violates {message}")
                 continue
+
             value = enforced[field_name]
             for constraint in constraints:
                 if constraint.is_satisfied(value):

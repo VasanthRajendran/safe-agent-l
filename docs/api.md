@@ -28,12 +28,14 @@ Composes the four controls around one decision.
 
 ## `safeagentl.constraints`
 
-### `Constraint(field, op, bound, mode=EnforcementMode.REJECT, reason="")`
+### `Constraint(field, op, bound, mode=EnforcementMode.REJECT, reason="", required=False)`
 
 One machine-readable rule on one action field. Operators: `gte`, `lte`,
 `gt`, `lt`, `eq`, `in`, `not_in`. `EnforcementMode.CLIP` is only valid for
 the four ordering operators; anything else raises
-`InvalidConstraintError` at construction.
+`InvalidConstraintError` at construction. When `required=True`, the
+constraint rejects the action if the field is absent entirely; otherwise,
+missing fields are ignored for backward compatibility.
 
 ### `ConstraintEngine(constraints=None)`
 

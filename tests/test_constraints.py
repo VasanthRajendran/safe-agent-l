@@ -38,6 +38,43 @@ def test_unregistered_fields_pass_through_untouched():
     assert result.action == {"quantity": 5}
 
 
+def test_required_constraint_rejects_action_missing_the_field():
+    engine = ConstraintEngine(
+        [
+            Constraint(
+                field="tool",
+                op="in",
+                bound={"lookup_customer", "create_ticket"},
+                required=True,
+            )
+        ]
+    )
+    result = engine.enforce({"customer_id": "CUST-001"})
+    assert result.allowed is False
+    assert result.action == {"customer_id": "CUST-001"}
+    assert "required field 'tool' is missing" in result.violations[0]
+    assert "rejected: 'tool' violates" in result.applied_constraints[0]
+
+
+def test_non_required_constraint_ignores_missing_field():
+    engine = ConstraintEngine([Constraint(field="tool", op="in", bound={"lookup_customer", "create_ticket"})])
+    result = engine.enforce({"customer_id": "CUST-001"})
+    assert result.allowed is True
+    assert result.action == {"customer_id": "CUST-001"}
+    assert result.violations == []
+    assert result.applied_constraints == []
+
+
+def test_required_field_violation_is_auditable_in_enforcement_history():
+    engine = ConstraintEngine([Constraint(field="reason", op="in", bound={"billing", "support"}, required=True)])
+    result = engine.enforce({"tool": "create_ticket"})
+    assert result.allowed is False
+    assert len(result.violations) == 1
+    assert len(result.applied_constraints) == 1
+    assert "required field 'reason' is missing" in result.violations[0]
+    assert "required field 'reason' is missing" in result.applied_constraints[0]
+
+
 def test_multiple_constraints_on_same_field_all_apply():
     engine = ConstraintEngine(
         [

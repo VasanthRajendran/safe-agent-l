@@ -37,11 +37,13 @@ A `Constraint` is one machine-readable rule on one field of the action:
 ```python
 Constraint(field="price", op="gte", bound=19.99, reason="MAP floor")
 Constraint(field="tool",  op="in",  bound=["search", "email"], reason="tool allowlist")
+Constraint(field="tool",  op="in",  bound={"lookup_customer", "create_ticket"}, required=True)
 ```
 
 Operators: `gte`, `lte`, `gt`, `lt`, `eq`, `in`, `not_in`. Enforcement
 modes: `REJECT` (deny the action) and `CLIP` (coerce to the bound; only
-valid for ordering operators). `ConstraintEngine.verify_configuration()`
+valid for ordering operators). Set `required=True` when a missing field
+must reject the action instead of being silently ignored. `ConstraintEngine.verify_configuration()`
 catches contradictory bounds (e.g. min > max) before deployment.
 
 The point is architectural: the rule is enforced at the boundary the
