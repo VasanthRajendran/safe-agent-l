@@ -159,6 +159,24 @@ tool-calling gates, workflow guardrails, and audit-log export, and
 - [`examples/tool_approval_gate.py`](examples/tool_approval_gate.py) — approval gate for a tool-calling agent, with audit-log export
 - [`examples/generic_agent_guard.py`](examples/generic_agent_guard.py) — generic tool-calling agent example with allowed and denied operations
 
+## Using it from an AI coding assistant
+
+[`skills/safe-agent-l/`](skills/safe-agent-l/) packages this library as an
+[Agent Skill](https://code.claude.com/docs/en/skills) — a `SKILL.md` plus
+reference files that an assistant loads on demand, so it can wire up the
+guardrails correctly without you pointing it at this repository each time.
+
+```bash
+cp -r skills/safe-agent-l ~/.claude/skills/     # or .claude/skills/ in a project
+```
+
+It carries the API surface, the integration patterns, the mistakes that
+turn a guardrail into a no-op, and per-domain constraint packs (pricing,
+refunds, lending, clinical, infrastructure, data egress). Both the trigger
+keywords and the constraint packs are meant to be edited to match your
+domain's vocabulary — see the "Adapting the skill to your domain" section
+in [`skills/safe-agent-l/SKILL.md`](skills/safe-agent-l/SKILL.md).
+
 ## API overview
 
 | Concern | Module | Key classes |

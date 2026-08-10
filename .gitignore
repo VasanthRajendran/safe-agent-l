@@ -15,3 +15,4 @@ venv/
 .DS_Store
 decision_audit.jsonl
 tool_gate_audit.jsonl
+audit.jsonl
