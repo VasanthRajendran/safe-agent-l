@@ -9,6 +9,11 @@ which will always be listed here).
 
 ## [Unreleased]
 
+### Added
+
+- Automated PyPI publishing on GitHub release via Trusted Publishing
+  (`.github/workflows/publish.yml`); release checklist updated accordingly.
+
 ## [0.1.0] - 2026-07-19
 
 ### Added
