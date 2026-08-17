@@ -24,7 +24,7 @@ from .explainability import DecisionLogger, DecisionTrace, TraceIncompleteError
 from .network import PartitionTolerantCache, Priority, PriorityRouter, TimeoutToSafeDefault
 from .safety import AnomalyDetector, CircuitBreaker, CircuitState, SafetyCheckResult, SafetyStack
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "SafeAgent",

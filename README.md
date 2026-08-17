@@ -82,8 +82,11 @@ Be clear-eyed about what a library can and cannot do:
 
 ## Installation
 
-Not yet published to PyPI (planned — see [ROADMAP.md](ROADMAP.md)). Install
-from source:
+```bash
+pip install safe-agent-l
+```
+
+Or from source:
 
 ```bash
 pip install git+https://github.com/VasanthRajendran/safe-agent-l.git
