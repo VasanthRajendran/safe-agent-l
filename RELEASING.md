@@ -1,7 +1,7 @@
 # Release checklist
 
 Releases are cut by maintainers only (see [MAINTAINERS.md](MAINTAINERS.md)).
-Nothing in this checklist is automated yet; run each step deliberately.
+PyPI publishing is automated (step 5); run every other step deliberately.
 
 ## 1. Prepare
 
@@ -50,19 +50,26 @@ gh release create vX.Y.Z --title "vX.Y.Z" --notes-file <(sed -n '/## \[X.Y.Z\]/,
 
 - [ ] Attach `dist/*` to the GitHub release.
 
-## 5. Publish to TestPyPI, then PyPI
+## 5. Publish to PyPI (automated)
 
-```bash
-twine upload --repository testpypi dist/*
-# verify: pip install -i https://test.pypi.org/simple/ safe-agent-l
-#         python -c "import safeagentl; print(safeagentl.__version__)"
-twine upload dist/*
-```
+Publishing the GitHub release in step 4 triggers
+[`.github/workflows/publish.yml`](.github/workflows/publish.yml), which
+rebuilds the distributions, runs `twine check` and a wheel smoke test, and
+uploads to PyPI via [Trusted Publishing](https://docs.pypi.org/trusted-publishers/)
+(OIDC — no API token is stored in the repo). The workflow can also be run
+manually from the Actions tab (`workflow_dispatch`) to publish the currently
+checked-out ref.
 
-- [ ] Install from TestPyPI in a clean venv and run the quickstart before
-  uploading to real PyPI.
-- [ ] After PyPI publish, verify `pip install safe-agent-l` works, then
-  update the README installation section to prefer the PyPI path.
+- [ ] The `Publish to PyPI` workflow run is green.
+- [ ] Verify `pip install safe-agent-l==X.Y.Z` works in a clean venv and the
+  quickstart runs.
+- [ ] If this is the first PyPI release, update the README installation
+  section to prefer the PyPI path.
+
+One-time setup (already done if a release has shipped before): on
+pypi.org → your account → Publishing, add a Trusted Publisher for
+`VasanthRajendran/safe-agent-l`, workflow `publish.yml`, environment `pypi`;
+and in the GitHub repo settings create the `pypi` environment.
 
 ## 6. After release
 
