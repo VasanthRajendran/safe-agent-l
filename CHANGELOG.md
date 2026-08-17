@@ -9,8 +9,20 @@ which will always be listed here).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-17
+
+First release published to PyPI: `pip install safe-agent-l`.
+
 ### Added
 
+- `Constraint.required`: a constraint marked `required=True` now rejects an
+  action whose field is absent, instead of letting the missing field pass
+  through unchecked. Constraints remain optional-by-default, so existing
+  configurations are unaffected.
+- `docs/integrations.md`: framework-agnostic integration patterns for
+  tool-calling gates, workflow guardrails, and audit-log export.
+- `examples/generic_agent_guard.py`: a runnable tool-calling example showing
+  both allowed and denied operations.
 - Automated PyPI publishing on GitHub release via Trusted Publishing
   (`.github/workflows/publish.yml`); release checklist updated accordingly.
 
@@ -36,5 +48,6 @@ which will always be listed here).
   around any `propose_fn`, with `assess_conformance()` self-assessment.
 - Test suite (48 tests), end-to-end pricing example, MIT license, CI.
 
-[Unreleased]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/VasanthRajendran/safe-agent-l/releases/tag/v0.1.0

@@ -6,7 +6,8 @@ something here matters to you — that is the main input for prioritization.
 
 ## Near term (0.2.x)
 
-- **Publish to PyPI** (after a TestPyPI dry run — see RELEASING.md).
+- ~~**Publish to PyPI**~~ — shipped in 0.2.0; releases now publish
+  automatically via Trusted Publishing (see RELEASING.md).
 - **Declarative policy loading**: define `ConstraintEngine` configurations
   in YAML/JSON so policies can be reviewed and versioned outside code.
 - **More constraint operators**: regex match, length bounds, nested-field
