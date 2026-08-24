@@ -12,7 +12,7 @@ authors:
   - family-names: Kumar
     given-names: Rajeev
     email: rajeev.kukkal@gmail.com
-version: 0.2.0
-date-released: 2026-08-17
+version: 0.2.1
+date-released: 2026-08-23
 license: MIT
 repository-code: "https://github.com/VasanthRajendran/safe-agent-l"

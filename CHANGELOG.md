@@ -9,6 +9,12 @@ which will always be listed here).
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-08-23
+
+### Changed
+
+- Added Meetu Malhotra and Rajeev Kumar to the package author metadata.
+
 ## [0.2.0] - 2026-08-17
 
 First release published to PyPI: `pip install safe-agent-l`.
@@ -48,6 +54,7 @@ First release published to PyPI: `pip install safe-agent-l`.
   around any `propose_fn`, with `assess_conformance()` self-assessment.
 - Test suite (48 tests), end-to-end pricing example, MIT license, CI.
 
-[Unreleased]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/VasanthRajendran/safe-agent-l/releases/tag/v0.1.0
