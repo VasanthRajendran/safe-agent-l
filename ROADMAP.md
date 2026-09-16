@@ -16,12 +16,13 @@ something here matters to you — that is the main input for prioritization.
   `TimeoutToSafeDefault` for asyncio-based agent stacks.
 - **Structured audit export**: first-class export of decision traces to
   JSONL/CSV with filtering, beyond the current append-only sink.
+- **LangChain integration adapter**: implemented as optional sync/async
+  tool-call middleware for the next release; the core remains dependency-free.
 
 ## Medium term
 
-- **Integration adapters**: thin, optional wrappers for common agent
-  frameworks and tool-calling protocols (kept out of the core so the base
-  library stays dependency-free).
+- **Additional integration adapters**: optional wrappers for CrewAI and
+  AutoGen, kept out of the core so the base library stays dependency-free.
 - **OpenTelemetry trace emission** for decision traces, so audit events land
   in existing observability pipelines.
 - **Policy versioning**: record which policy version governed each decision

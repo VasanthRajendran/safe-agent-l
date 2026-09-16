@@ -22,7 +22,7 @@ production, and applies four independent controls at the point of action:
    *deny*, and last-known-good policy stays enforced through network
    degradation and partitions, resynchronizing on recovery.
 
-The library is pure Python with **zero runtime dependencies**, is fully
+The core library is pure Python with **zero runtime dependencies**, is fully
 typed (`py.typed`), and wraps any agent that can express an action as a
 dictionary — it is not itself an LLM agent and does not call any model API.
 
@@ -102,6 +102,12 @@ pip install -e ".[dev]"
 
 Requires Python 3.9+. No runtime dependencies.
 
+For the optional LangChain tool-call adapter (Python 3.10+):
+
+```bash
+pip install "safe-agent-l[langchain]"
+```
+
 ## Quickstart
 
 ```python
@@ -162,6 +168,10 @@ tool-calling gates, workflow guardrails, and audit-log export, and
 - [`examples/tool_approval_gate.py`](examples/tool_approval_gate.py) — approval gate for a tool-calling agent, with audit-log export
 - [`examples/generic_agent_guard.py`](examples/generic_agent_guard.py) — generic tool-calling agent example with allowed and denied operations
 
+The LangChain adapter provides sync and async middleware that intercepts tool
+calls immediately before execution. See the
+[integration guide](docs/integrations.md#langchain-tool-call-middleware).
+
 ## API overview
 
 | Concern | Module | Key classes |
@@ -171,6 +181,7 @@ tool-calling gates, workflow guardrails, and audit-log export, and
 | Defense-in-depth safety | `safeagentl.safety` | `AnomalyDetector`, `CircuitBreaker`, `SafetyStack` |
 | Fail-closed resilience | `safeagentl.network` | `PriorityRouter`, `TimeoutToSafeDefault`, `PartitionTolerantCache` |
 | Orchestration | `safeagentl.agent` | `SafeAgent`, `Decision`, `ConformanceLevel` |
+| LangChain adapter | `safeagentl.integrations.langchain` | `SafeAgentMiddleware` |
 
 Full reference: [docs/api.md](docs/api.md). Concepts and design rationale:
 [docs/concepts.md](docs/concepts.md).
@@ -178,10 +189,11 @@ Full reference: [docs/api.md](docs/api.md). Concepts and design rationale:
 ## API stability
 
 Pre-1.0: minor versions (0.x) may contain breaking changes, always listed in
-[CHANGELOG.md](CHANGELOG.md). The public API is exactly the set of names
-exported from the top-level `safeagentl` package; anything imported from
-submodules with a leading underscore is internal. From 1.0 onward the
-project will follow semantic versioning.
+[CHANGELOG.md](CHANGELOG.md). The core public API is the set of names exported
+from the top-level `safeagentl` package. Optional adapters expose the names
+documented in [docs/api.md](docs/api.md); anything imported from submodules
+with a leading underscore is internal. From 1.0 onward the project will follow
+semantic versioning.
 
 ## Development
 
