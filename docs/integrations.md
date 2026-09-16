@@ -85,6 +85,59 @@ These examples do not require LangChain, OpenAI, LlamaIndex, or any other
 framework-specific client. Any callable that returns a dict can be wrapped by
 `SafeAgent`.
 
+## LangChain tool-call middleware
+
+Install the optional adapter on Python 3.10 or later:
+
+```bash
+pip install "safe-agent-l[langchain]"
+```
+
+`SafeAgentMiddleware` uses LangChain's tool-call middleware hook, so the real
+tool handler is called only after the action passes the Safe Agent pipeline:
+
+```python
+from langchain.agents import create_agent
+from langchain.tools import tool
+
+from safeagentl import Constraint, ConstraintEngine, SafeAgent
+from safeagentl.integrations.langchain import SafeAgentMiddleware
+
+@tool
+def issue_refund(amount: float) -> str:
+    """Issue a customer refund."""
+    return refund_service.issue(amount)
+
+gate = SafeAgent(
+    agent_id="refund-agent",
+    constraint_engine=ConstraintEngine([
+        Constraint(field="tool", op="eq", bound="issue_refund", required=True),
+        Constraint(field="amount", op="lte", bound=100.0, required=True,
+                   reason="autonomous refund cap"),
+    ]),
+)
+
+agent = create_agent(
+    model=chat_model,  # your configured LangChain chat model
+    tools=[issue_refund],
+    middleware=[SafeAgentMiddleware(gate)],
+)
+```
+
+The adapter maps a call to `{"tool": tool_name, **tool_arguments}`. A rejected
+call becomes an error `ToolMessage` containing the auditable decision ID, and
+the underlying tool is not invoked. If a constraint uses `CLIP`, only the
+governed argument values reach the tool. Both synchronous and asynchronous
+LangChain execution are supported. Concurrent tool calls have their decision
+checks serialized to protect the gate's in-memory audit history, while approved
+tool handlers may still run concurrently. The `tool` key is reserved by
+default; use `tool_name_field` when a tool schema already has an argument with
+that name.
+
+This middleware governs client-side tools executed through LangChain's tool
+node. Provider-hosted/server-side tools execute outside that boundary and
+cannot be intercepted by this adapter.
+
 ## Gate for an LLM tool-calling agent
 
 Represent each tool call as a flat action dict and constrain the fields you

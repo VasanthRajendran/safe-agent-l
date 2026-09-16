@@ -9,6 +9,12 @@ which will always be listed here).
 
 ## [Unreleased]
 
+### Added
+
+- Optional LangChain middleware adapter that governs every tool call before
+  execution, fails closed with an auditable error `ToolMessage`, forwards
+  clipped arguments, and supports synchronous and asynchronous handlers.
+
 ## [0.2.2] - 2026-08-23
 
 ### Changed
