@@ -1,9 +1,9 @@
 # API reference
 
-The public API is the set of names exported from the top-level `safeagentl`
-package. Everything below is importable as `from safeagentl import …`.
-Docstrings in the source are the authoritative reference; this page is the
-map.
+The core public API is the set of names exported from the top-level
+`safeagentl` package. Optional framework adapters have their own documented
+module imports. Docstrings in the source are the authoritative reference;
+this page is the map.
 
 ## `safeagentl.agent`
 
@@ -116,6 +116,24 @@ is_stale)` always answers, even mid-partition. `is_stale` property.
 
 `submit(message, priority)` and `dispatch_next()` / `drain()`. Priorities:
 `CRITICAL` > `HIGH` > `ROUTINE`; FIFO within a level.
+
+## `safeagentl.integrations.langchain`
+
+Install with `pip install "safe-agent-l[langchain]"` on Python 3.10 or later,
+then import `SafeAgentMiddleware` from this module.
+
+### `SafeAgentMiddleware(gate, state_mapper=None, denial_formatter=None, tool_name_field="tool")`
+
+LangChain agent middleware that governs each client-side tool call immediately
+before execution. It maps the call to `{"tool": tool_name, **arguments}`, runs
+the configured `SafeAgent`, forwards post-enforcement arguments to approved
+tools, and returns an error `ToolMessage` without invoking denied tools. Both
+`wrap_tool_call` and `awrap_tool_call` are implemented.
+
+`state_mapper` controls which LangChain state is recorded in the decision
+trace. `denial_formatter` controls the model-visible denial text. The default
+`tool` field is reserved; choose a different `tool_name_field` if a tool already
+has an argument with that name.
 
 ## Exceptions
 
