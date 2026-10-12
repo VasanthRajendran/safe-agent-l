@@ -215,12 +215,15 @@ instructions.
 ## Relationship to the SAFE-AGENT-L standardization effort
 
 The SAFE-AGENT-L governance framework was presented to the IEEE Future
-Networks AI/ML Working Group in February 2026 and is in PAR (Project
-Authorization Request) review within IEEE ComSoc COM/NetSoft SC toward a
-proposed IEEE Recommended Practice. This library is an independent,
-permissively licensed implementation of the framework's four pillars. It is
-not part of the IEEE standardization process and makes no claim of
-conformance to a not-yet-published standard.
+Networks AI/ML Working Group in February 2026. On 25 September 2026 the IEEE
+SA Standards Board approved the PAR (Project Authorization Request) for
+[IEEE P1968](https://standards.ieee.org/ieee/1968/12749/), *Recommended
+Practice for the Governance of Autonomous Artificial Intelligence (AI) Agent
+Systems*, developed by the Autonomous AI Agent Systems Governance Working
+Group (AIAG) under IEEE ComSoc COM/NetSoft SC. This library is an
+independent, permissively licensed implementation of the framework's four
+pillars. It is not part of the IEEE standardization process and makes no
+claim of conformance to a standard that is still in development.
 
 ## Project
 

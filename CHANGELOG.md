@@ -9,11 +9,19 @@ which will always be listed here).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-12
+
 ### Added
 
 - Optional LangChain middleware adapter that governs every tool call before
   execution, fails closed with an auditable error `ToolMessage`, forwards
   clipped arguments, and supports synchronous and asynchronous handlers.
+
+### Changed
+
+- Expanded `CITATION.cff` with abstract, keywords and project URL, and
+  prepared for a Zenodo DOI.
+- Updated the README to reflect the approved IEEE P1968 PAR.
 
 ## [0.2.2] - 2026-08-23
 
@@ -67,7 +75,8 @@ First release published to PyPI: `pip install safe-agent-l`.
   around any `propose_fn`, with `assess_conformance()` self-assessment.
 - Test suite (48 tests), end-to-end pricing example, MIT license, CI.
 
-[Unreleased]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/VasanthRajendran/safe-agent-l/compare/v0.1.0...v0.2.0
