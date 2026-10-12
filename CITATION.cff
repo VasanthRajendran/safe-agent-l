@@ -2,6 +2,11 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "safe-agent-l: A Runtime Enforcement Library for Governed Autonomous AI Agent Systems"
 type: software
+abstract: >-
+  safe-agent-l is a Python runtime enforcement library for autonomous AI agent
+  systems. It applies four independent controls at the point of action:
+  constraint enforcement, auditable decision traces, defense-in-depth safety
+  controls, and fail-closed resilience.
 authors:
   - family-names: Rajendran
     given-names: Vasanth
@@ -12,7 +17,17 @@ authors:
   - family-names: Kumar
     given-names: Rajeev
     email: rajeev.kukkal@gmail.com
-version: 0.2.2
-date-released: 2026-08-23
+version: 0.3.0
+date-released: 2026-10-12
 license: MIT
 repository-code: "https://github.com/VasanthRajendran/safe-agent-l"
+url: "https://github.com/VasanthRajendran/safe-agent-l"
+keywords:
+  - ai-agents
+  - ai-governance
+  - ai-safety
+  - guardrails
+  - audit-logging
+  - runtime-enforcement
+# Uncomment after Zenodo issues the DOI (use the concept DOI, which covers all versions):
+# doi: 10.5281/zenodo.XXXXXXX
